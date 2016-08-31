@@ -65,28 +65,7 @@ void Reduce(int*msj, int tam)
     }
 
 }
-/*
-void BroadCast(int* msj,int tam)
-{
-    int rank,comm_sz;
-    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
-    MPI_Comm_size(MPI_COMM_WORLD,&comm_sz);
-    int mask=comm_sz-1;
-    int d = (int)(log(comm_sz)/log(2));
-    for(int k=d-1;k>=0;k--)
-    {
-        mask=mask ^ (int)(pow(2,k));
-        if((my_rank & mask) == 0)
-        {
-            int punto=my_rank ^ (int)(pow(2,k));
-            if((my_rank & (int)(pow(2,k))) == 0)
-                MPI_Send(msj,tam,MPI_FLOAT,punto,0,MPI_COMM_WORLD);
-            else
-                MPI_Recv(msj,tam,MPI_FLOAT,punto,0,MPI_COMM_WORLD,MPI_STATUS_IGNORE); 
-        }
-    }
-}
-*/
+
 int main(int argc, char** argv)
 {
     double startwtime, endwtime;
