@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <mpi.h>
 #include <math.h>
+#include <stdbool.h>
 bool encontrar(int * vec,int tam,int num)
 {
     bool encontrado=0;
@@ -25,7 +26,7 @@ int * Remover(int *vec ,int tam, int num)
     {
         if (vec[i] != num)
         {
-            *(vect2 + aux)=vec[i];
+            *(vec2 + aux)=vec[i];
             aux++;
         }
     }
@@ -43,14 +44,14 @@ void Reduce(int*msj, int tam)
     vector = (int*)malloc((comm_sz/2)*sizeof(int));
     for (int i=0;i<comm_sz;i+=2)
         *(vector + i)=i;
-    while (limit>1)
-    {
-        if (!encontrado(vector,limit,rank))
+    if (!encontrado(vector,limit,rank))
         {
             MPI_Send(&msj[rank],tam,MPI_INT,rank-resta,0,MPI_COMM_WORLD);
             resta+=1;
         }
-        else
+    else
+    {
+        while (limit>1 && encontrado(vector,limit,rank))
         {
             MPI_Recv(msj, tam, MPI_INT, rank+resta-1, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
             int sum=msj[rank]+*msj;
@@ -63,7 +64,9 @@ void Reduce(int*msj, int tam)
             }
         }
     }
-
+    if (limit=1 && rank==0)
+        printf("Numero %d\n",sum);
+    return;
 }
 
 int main(int argc, char** argv)
