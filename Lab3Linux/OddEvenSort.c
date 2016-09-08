@@ -1,87 +1,4 @@
-/*
-#include "mpi.h"
-#include <stdio.h>
-#include <stdlib.h>
-//Codigo de ordenacion de las diapositivas
-void PrintVector(int a[], int n)
-{
-	for (int i=0;i<n;i++)
-		printf("%7d ",a[i]);
-}
-void Odd_even_sort(int a[], int n)
-{
-	int phase, i, temp;
-	for(phase=0;phase<n;phase++)
-	{
-		if (phase%2==0)
-		{
-			for (i=1;i<n;i+=2)
-			{
-				if (a[i-1]>a[i])
-				{
-					temp= a[i];
-					a[i]=a[i-1];
-					a[i-1]=temp;					
-				}
-			}
-		}
-		else
-		{
-			for (i=1;i<n-1;i+=2)
-			{
-				if (a[i]>a[i+1])
-				{
-					temp= a[i];
-					a[i]=a[i+1];
-					a[i+1]=temp;					
-				}
-			}
-		}
-	}
-}
-int main(int argc, char * argv[]) 
-{
-	int * vec;
-	int tam, comn_sz, rank;
-	tam=10;
-	vec=malloc(tam*sizeof(int));
-    for (int i=0;i<tam;i++)
-    	*(vec + i)=1+(int)(10*random()/(RAtamD_MAX+1.0));
- /*   PrintVector(vec,tam);
-    printf("Ordenado\n");
-    Odd_even_sort(vec,tam);
-    PrintVector(vec,tam);*//*
-    double startwtime, endwtime;
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &comn_sz);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    vec=malloc(tam*sizeof(int));
-    for (int i=0;i<tam;i++)
-    	*(vec + i)=1+(int)(10*random()/(RAtamD_MAX+1.0));
-    if (rank==0)
-    {
-    	MPI_Bcast(vector,tam,MPI_ItamT, 0, MPI_COMM_WORLD);
-    }
-    else
-    {
-     	MPI_Bcast(vector,tam,MPI_ItamT, 0, MPI_COMM_WORLD);
-    }
-    int * local_vec;
-    int division,inicio,fin;
-    division=(int)tam/comn_sz;
-    inicio=rank*division;
-    fin=inicio+division-1;
-    if (rank==comn_sz-1)
-    {
-    	fin=fin+(tam%comn_sz);
-    }
-    local_vec=malloc((fin-inicio+1)*sizeof(int))
-    for (int i=0,int k=inicio;i<fin-inicio+1;i++,k++;)
-    	local_vec[i]=vec[k];
-    Odd_even_sort(local_vec,fin-inicio+1);
-    MPI_Finalize();
-	return 0; 
-}*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
@@ -93,7 +10,6 @@ void PrintVector(int a[], int n)
 	for (int i=0;i<n;i++)
 		printf("%7d ",a[i]);
 }
-/* comparison function for qsort */
 int cmp(const void* ap, const void* bp) {
   int a = * ((const int*) ap);
   int b = * ((const int*) bp);
